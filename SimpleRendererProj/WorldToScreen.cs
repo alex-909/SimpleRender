@@ -38,14 +38,23 @@ namespace SimpleRendererProj
 				ScreenPoint s = ConvertPointToScreen(point);
 				//
 
-				s.x = s.x * 2.15f;
+				bool stretch = true;
+				if (stretch) 
+				{
+					s.x -= (maxX - minX) / 2;
+					s.x *= 2.14f;
+					s.x += (maxX - minX) / 2;
+				}
 
-				//
-				if (s.x < 0 || s.x > maxX || s.y < 0 || s.y > maxY) 
+				
+				if ((s.x < 0) || (s.x > maxX*2) || (s.y < 0) || (s.y > maxY*2)) 
 				{
 					continue;
 					//point not on screen
 				}
+				
+				
+				
 				screenPoints.Add(s);
 			}
 
@@ -59,9 +68,12 @@ namespace SimpleRendererProj
 			{
 				for (int i = 0; i < (maxX - minX); i++)
 				{
-					characters[i,j] = ' ';
+					characters[i,j] = '.';
 				}
 			}
+
+			Console.WriteLine("in screenToChar");
+			Console.WriteLine(points.Length);
 
 			foreach (ScreenPoint point in points) 
 			{
