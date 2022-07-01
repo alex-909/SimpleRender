@@ -30,6 +30,8 @@ namespace SimpleRendererProj
 
 			Console.WriteLine("end");
 			Console.ReadKey();
+
+			Console.WriteLine("Hello Worldd!");
 		}
 	}
 }
