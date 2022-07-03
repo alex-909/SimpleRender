@@ -11,20 +11,19 @@ namespace SimpleRendererProj
 
 			World world = new World();
 
-			Vector3 camera = new Vector3(0, 0, -10);
-			ScreenBoundary screen = new ScreenBoundary(-75, 75, -25, 25, 10);
+			Vector3 camera = new Vector3(0, 0, 0);
+			ScreenBoundary screen = new ScreenBoundary(-75, 75, -25, 25, 20);
 			WorldToScreen worldToScreen = new WorldToScreen(camera, screen);
 
+			Vector3 point1f = new Vector3(-30, -30, 40);
+			Vector3 point2f = new Vector3( 30, -30, 40);
+			Vector3 point3f = new Vector3( 30,  30, 40);
+			Vector3 point4f = new Vector3(-30,  30, 40);
 
-			Vector3 point1f = new Vector3(-30, -30, 30);
-			Vector3 point2f = new Vector3( 30, -30, 30);
-			Vector3 point3f = new Vector3( 30,  30, 30);
-			Vector3 point4f = new Vector3(-30,  30, 30);
-
-			Vector3 point1b = new Vector3(-30, -30, 90);
-			Vector3 point2b = new Vector3( 30, -30, 90);
-			Vector3 point3b = new Vector3( 30,  30, 90);
-			Vector3 point4b = new Vector3(-30,  30, 90);
+			Vector3 point1b = new Vector3(-30, -30, 100);
+			Vector3 point2b = new Vector3( 30, -30, 100);
+			Vector3 point3b = new Vector3( 30,  30, 100);
+			Vector3 point4b = new Vector3(-30,  30, 100);
 
 			Vector3 pointTest = new Vector3(0, 0, 15);
 

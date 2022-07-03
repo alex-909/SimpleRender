@@ -47,14 +47,12 @@ namespace SimpleRendererProj
 				}
 
 				
-				if ((s.x < 0) || (s.x > maxX*2) || (s.y < 0) || (s.y > maxY*2)) 
+				if ((s.x < 0) || (s.x >= maxX*2) || (s.y < 0) || (s.y >= maxY*2)) 
 				{
 					continue;
 					//point not on screen
 				}
-				
-				
-				
+
 				screenPoints.Add(s);
 			}
 
