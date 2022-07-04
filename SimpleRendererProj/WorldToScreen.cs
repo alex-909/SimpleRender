@@ -47,7 +47,7 @@ namespace SimpleRendererProj
 				}
 
 				
-				if ((s.x < 0) || (s.x >= maxX*2) || (s.y < 0) || (s.y >= maxY*2)) 
+				if ((s.x < 0) || (s.x >= maxX*2) || (s.y < 0) || (s.y >= maxY*2))
 				{
 					continue;
 					//point not on screen
@@ -66,7 +66,7 @@ namespace SimpleRendererProj
 			{
 				for (int i = 0; i < (maxX - minX); i++)
 				{
-					characters[i,j] = '.';
+					characters[i,j] = Program.empty;
 				}
 			}
 
@@ -77,7 +77,7 @@ namespace SimpleRendererProj
 			{
 				int x = (int)point.x;
 				int y = (int)point.y;
-				characters[x, y] = '#';
+				characters[x, y] = Program.full;
 			}
 
 			return characters;

@@ -23,6 +23,13 @@ namespace SimpleRendererProj
 		{
 			points.AddRange(point);
 		}
+		public void AddLines(Line[] lines) 
+		{
+			foreach (Line line in lines) 
+			{
+				this.AddPoint(line.PointsOnLine());
+			}
+		}
 		public void Clear() 
 		{
 			points.Clear();
