@@ -11,6 +11,7 @@ namespace SimpleRendererProj
 
 		static void Main(string[] args)
 		{
+			float pi = MathF.PI;
 			//setup
 			Console.WriteLine("start");
 
@@ -30,8 +31,7 @@ namespace SimpleRendererProj
 			Vector3 point3b = new Vector3( 30,  30, 130);
 			Vector3 point4b = new Vector3(-30,  30, 130);
 
-			Vector3 uppermid = new Vector3(0, 30, 100);
-			Vector3 lowermid = new Vector3(0, -30, 100);
+			Vector3 midpoint = new Vector3(0, 0, 100);
 
 			Vector3 pointTest = new Vector3(0, 0, 15);
 
@@ -48,33 +48,69 @@ namespace SimpleRendererProj
 
 					Console.WriteLine(runtime);
 
-					float amplitude = (uppermid - point3f).Length();
+					float amplitude = MathF.Sqrt(30 * 30 * 2);
+					float phase = 0f;
 
+
+					#region y axis rotation
+					
 					//upper
-					point3f.x = (amplitude * MathF.Sin((0.001f * runtime) + ((7f / 4f) * MathF.PI))) + uppermid.x;
-					point3f.z = (amplitude * MathF.Cos((0.001f * runtime) + ((7f / 4f) * MathF.PI))) + uppermid.z;
+					(point3f.x, point3f.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, (7f/4f) * pi, midpoint.x, midpoint.z);
 
-					point4f.x = (amplitude * MathF.Sin((0.001f * runtime) + ((5f / 4f) * MathF.PI))) + uppermid.x;
-					point4f.z = (amplitude * MathF.Cos((0.001f * runtime) + ((5f / 4f) * MathF.PI))) + uppermid.z;
+					(point4f.x, point4f.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, (5f/4f) * pi, midpoint.x, midpoint.z);
 
-					point3b.x = (amplitude * MathF.Sin((0.001f * runtime) + ((1f / 4f) * MathF.PI))) + uppermid.x;
-					point3b.z = (amplitude * MathF.Cos((0.001f * runtime) + ((1f / 4f) * MathF.PI))) + uppermid.z;
+					(point3b.x, point3b.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, (1f/4f) * pi, midpoint.x, midpoint.z);
 
-					point4b.x = (amplitude * MathF.Sin((0.001f * runtime) + ((3f / 4f) * MathF.PI))) + uppermid.x;
-					point4b.z = (amplitude * MathF.Cos((0.001f * runtime) + ((3f / 4f) * MathF.PI))) + uppermid.z;
+					(point4b.x, point4b.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, (3f/4f) * pi, midpoint.x, midpoint.z);
+
 
 					//lower
-					point1f.x = (amplitude * MathF.Sin((0.001f * runtime) + ((5f / 4f) * MathF.PI))) + lowermid.x;
-					point1f.z = (amplitude * MathF.Cos((0.001f * runtime) + ((5f / 4f) * MathF.PI))) + lowermid.z;
+					(point1f.x, point1f.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, (5f / 4f) * pi, midpoint.x, midpoint.z);
 
-					point2f.x = (amplitude * MathF.Sin((0.001f * runtime) + ((7f / 4f) * MathF.PI))) + lowermid.x;
-					point2f.z = (amplitude * MathF.Cos((0.001f * runtime) + ((7f / 4f) * MathF.PI))) + lowermid.z;
+					(point2f.x, point2f.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, (7f / 4f) * pi, midpoint.x, midpoint.z);
 
-					point1b.x = (amplitude * MathF.Sin((0.001f * runtime) + ((3f / 4f) * MathF.PI))) + lowermid.x;
-					point1b.z = (amplitude * MathF.Cos((0.001f * runtime) + ((3f / 4f) * MathF.PI))) + lowermid.z;
+					(point1b.x, point1b.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, (3f / 4f) * pi, midpoint.x, midpoint.z);
 
-					point2b.x = (amplitude * MathF.Sin((0.001f * runtime) + ((1f / 4f) * MathF.PI))) + lowermid.x;
-					point2b.z = (amplitude * MathF.Cos((0.001f * runtime) + ((1f / 4f) * MathF.PI))) + lowermid.z;
+					(point2b.x, point2b.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, (1f / 4f) * pi, midpoint.x, midpoint.z);
+					
+					#endregion
+					
+					#region x axis rotation
+					amplitude = Calc.GetAmplitude(point1f, midpoint, Plane.YZ_Plane);
+					phase = Calc.GetPhase(point1f, midpoint, Plane.YZ_Plane);
+					(point1f.y, point1f.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, (7f / 4f) * pi, midpoint.y, midpoint.z);
+
+					amplitude = Calc.GetAmplitude(point1b, midpoint, Plane.YZ_Plane);
+					phase = Calc.GetPhase(point1b, midpoint, Plane.YZ_Plane);
+					(point1b.y, point1b.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, (5f / 4f) * pi, midpoint.y, midpoint.z);
+
+					amplitude = Calc.GetAmplitude(point4f, midpoint, Plane.YZ_Plane);
+					phase = Calc.GetPhase(point4f, midpoint, Plane.YZ_Plane);
+					(point4f.y, point4f.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, (1f / 4f) * pi, midpoint.y, midpoint.z);
+
+					amplitude = Calc.GetAmplitude(point4b, midpoint, Plane.YZ_Plane);
+					phase = Calc.GetPhase(point4b, midpoint, Plane.YZ_Plane);
+					(point4b.y, point4b.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, (3f / 4f) * pi, midpoint.y, midpoint.z);
+
+					//lower
+					amplitude = Calc.GetAmplitude(point2b, midpoint, Plane.YZ_Plane);
+					phase = Calc.GetPhase(point2b, midpoint, Plane.YZ_Plane);
+					(point2b.y, point2b.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, (5f / 4f) * pi, midpoint.y, midpoint.z);
+
+					amplitude = Calc.GetAmplitude(point2f, midpoint, Plane.YZ_Plane);
+					phase = Calc.GetPhase(point2f, midpoint, Plane.YZ_Plane);
+					(point2f.y, point2f.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, (7f / 4f) * pi, midpoint.y, midpoint.z);
+
+					amplitude = Calc.GetAmplitude(point3b, midpoint, Plane.YZ_Plane);
+					phase = Calc.GetPhase(point3b, midpoint, Plane.YZ_Plane);
+					(point3b.y, point3b.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, (3f / 4f) * pi, midpoint.y, midpoint.z);
+
+					amplitude = Calc.GetAmplitude(point3f, midpoint, Plane.YZ_Plane);
+					phase = Calc.GetPhase(point3f, midpoint, Plane.YZ_Plane);
+					(point3f.y, point3f.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, (1f / 4f) * pi, midpoint.y, midpoint.z);
+
+					#endregion
+					
 
 					Line line1f = new Line(point1f, point2f, 5);
 					Line line2f = new Line(point2f, point3f, 5);
