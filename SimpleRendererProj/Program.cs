@@ -3,15 +3,14 @@ using System.Diagnostics;
 
 namespace SimpleRendererProj
 {
-	//2.15
+	// 2.15
+	// .,-~:;=!*#$@   -> 12
 	class Program
 	{
-		public static char empty = ' ';
-		public static char full = '#';
-
 		static void Main(string[] args)
 		{
 			float pi = MathF.PI;
+
 			//setup
 			Console.WriteLine("start");
 
@@ -35,6 +34,8 @@ namespace SimpleRendererProj
 
 			Vector3 pointTest = new Vector3(0, 0, 15);
 
+			Vector3 lightSource = new Vector3(0, 0, -10);
+
 			Stopwatch sw = Stopwatch.StartNew();
 			//update
 
@@ -43,78 +44,58 @@ namespace SimpleRendererProj
 				long runtime = sw.ElapsedMilliseconds;
 				if (runtime % 10 == 0)
 				{
+					//tick();
 					//1 frame:
 					world.Clear();
 
 					Console.WriteLine(runtime);
 
 					float amplitude = MathF.Sqrt(30 * 30 * 2);
-					float phase = 0f;
-
 
 					#region y axis rotation
 					
 					//upper
 					(point3f.x, point3f.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, (7f/4f) * pi, midpoint.x, midpoint.z);
-
 					(point4f.x, point4f.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, (5f/4f) * pi, midpoint.x, midpoint.z);
-
 					(point3b.x, point3b.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, (1f/4f) * pi, midpoint.x, midpoint.z);
-
 					(point4b.x, point4b.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, (3f/4f) * pi, midpoint.x, midpoint.z);
-
 
 					//lower
 					(point1f.x, point1f.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, (5f / 4f) * pi, midpoint.x, midpoint.z);
-
 					(point2f.x, point2f.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, (7f / 4f) * pi, midpoint.x, midpoint.z);
-
 					(point1b.x, point1b.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, (3f / 4f) * pi, midpoint.x, midpoint.z);
-
 					(point2b.x, point2b.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, (1f / 4f) * pi, midpoint.x, midpoint.z);
 
 					#endregion
 
 					point1b.y = point1f.y = point2b.y = point2f.y = -30;
 					point3b.y = point3f.y = point4b.y = point4f.y = 30;
-					
+
 					#region x axis rotation
-					amplitude = Calc.GetAmplitude(point1f, midpoint, Plane.YZ_Plane);
-					phase = Calc.GetPhase(point1f, midpoint, Plane.YZ_Plane);
-					(point1f.y, point1f.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, phase, midpoint.y, midpoint.z);
 
-					amplitude = Calc.GetAmplitude(point1b, midpoint, Plane.YZ_Plane);
-					phase = Calc.GetPhase(point1b, midpoint, Plane.YZ_Plane);
-					(point1b.y, point1b.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, phase, midpoint.y, midpoint.z);
+					Vector3[] points = new Vector3[]
+					{
+						point1f, point1b, 
+						point2f, point2b,
+						point3f, point3b,
+						point4f, point4b,
+					};
 
-					amplitude = Calc.GetAmplitude(point4f, midpoint, Plane.YZ_Plane);
-					phase = Calc.GetPhase(point4f, midpoint, Plane.YZ_Plane);
-					(point4f.y, point4f.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, phase, midpoint.y, midpoint.z);
+					float omegaT = 0.001f * runtime;
+					points = Calc.RotatePointsAroundAxis(points, midpoint, Plane.YZ_Plane, omegaT, midpoint.y, midpoint.z);
 
-					amplitude = Calc.GetAmplitude(point4b, midpoint, Plane.YZ_Plane);
-					phase = Calc.GetPhase(point4b, midpoint, Plane.YZ_Plane);
-					(point4b.y, point4b.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, phase, midpoint.y, midpoint.z);
-
-					//lower
-					amplitude = Calc.GetAmplitude(point2b, midpoint, Plane.YZ_Plane);
-					phase = Calc.GetPhase(point2b, midpoint, Plane.YZ_Plane);
-					(point2b.y, point2b.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, phase, midpoint.y, midpoint.z);
-
-					amplitude = Calc.GetAmplitude(point2f, midpoint, Plane.YZ_Plane);
-					phase = Calc.GetPhase(point2f, midpoint, Plane.YZ_Plane);
-					(point2f.y, point2f.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, phase, midpoint.y, midpoint.z);
-
-					amplitude = Calc.GetAmplitude(point3b, midpoint, Plane.YZ_Plane);
-					phase = Calc.GetPhase(point3b, midpoint, Plane.YZ_Plane);
-					(point3b.y, point3b.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, phase, midpoint.y, midpoint.z);
-
-					amplitude = Calc.GetAmplitude(point3f, midpoint, Plane.YZ_Plane);
-					phase = Calc.GetPhase(point3f, midpoint, Plane.YZ_Plane);
-					(point3f.y, point3f.z) = Calc.RotSinCos(amplitude, 0.001f * runtime, phase, midpoint.y, midpoint.z);
+					point1f = points[0];
+					point1b = points[1];
+					point2f = points[2];
+					point2b = points[3];
+					point3f = points[4];
+					point3b = points[5];
+					point4f = points[6];
+					point4b = points[7];
 
 					#endregion
-					
 
+					/*
 					Line line1f = new Line(point1f, point2f, 5);
 					Line line2f = new Line(point2f, point3f, 5);
 					Line line3f = new Line(point3f, point4f, 5);
@@ -138,7 +119,25 @@ namespace SimpleRendererProj
 					};
 
 					world.AddLines(cubeLines);
-					world.AddPoint(pointTest);
+					*/
+
+					Face face1 = new Face(point1f, point2f-point1f, point4f-point1f, 2);
+					Face face2 = new Face(point2f, point2b-point2f, point3f-point2f, 2);
+					Face face3 = new Face(point3f, point3b-point3f, point4f-point3f, 2);
+					Face face4 = new Face(point4f, point4b-point4f, point1f-point4f, 2);
+					Face face5 = new Face(point1f, point1b-point1f, point2f-point1f, 2);
+					Face face6 = new Face(point1b, point4b-point1b, point2b-point1b, 2);
+
+					Face[] cubeFaces = new Face[]
+					{
+						face1, face2, face3,
+						face4, face5, face6
+					};
+
+
+
+					world.AddFaces(cubeFaces, lightSource);
+					world.AddPoint((pointTest, 1));
 
 
 					Console.WriteLine($"world: {world.GetAllPoints().Length}");

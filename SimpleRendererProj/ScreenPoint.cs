@@ -8,11 +8,13 @@ namespace SimpleRendererProj
 	{
 		public float x;
 		public float y;
+		public char lighting;
 
-		public ScreenPoint(float x, float y) 
+		public ScreenPoint(float x, float y, char lighting) 
 		{
 			this.x = x;
 			this.y = y;
+			this.lighting = lighting;
 		}
 	}
 }

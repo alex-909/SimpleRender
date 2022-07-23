@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
-
+using System.Linq;
 
 namespace SimpleRendererProj
 {
@@ -30,10 +29,15 @@ namespace SimpleRendererProj
 			this.z = screen.z;
 		}
 
-		public char[,] ConvertWorldToScreen(Vector3[] points) 
+		public char[,] ConvertWorldToScreen((Vector3 vector, float f)[] points) 
 		{
 			List<ScreenPoint> screenPoints = new List<ScreenPoint>();
-			foreach (Vector3 point in points) 
+
+			var sortedValues = points
+				.OrderByDescending(x => x.vector.z)
+				.ToArray();
+
+			foreach ((Vector3 v, float f) point in sortedValues) 
 			{
 				ScreenPoint s = ConvertPointToScreen(point);
 				//
@@ -66,7 +70,7 @@ namespace SimpleRendererProj
 			{
 				for (int i = 0; i < (maxX - minX); i++)
 				{
-					characters[i,j] = Program.empty;
+					characters[i,j] = Lighting.empty;
 				}
 			}
 
@@ -77,14 +81,15 @@ namespace SimpleRendererProj
 			{
 				int x = (int)point.x;
 				int y = (int)point.y;
-				characters[x, y] = Program.full;
+				characters[x, y] = point.lighting;
 			}
 
 			return characters;
 		}
 
-		public ScreenPoint ConvertPointToScreen(Vector3 point) 
+		public ScreenPoint ConvertPointToScreen((Vector3 v, float f) p) 
 		{
+			Vector3 point = p.v;
 			float world_deltaz = point.z - camera.z;
 
 			float deltaX = (point.x - camera.x) * (z - camera.z) / (world_deltaz);
@@ -96,7 +101,7 @@ namespace SimpleRendererProj
 			float screenX = planeX - minX;
 			float screenY = planeY - minY;
 
-			return new ScreenPoint(screenX, screenY);
+			return new ScreenPoint(screenX, screenY, Lighting.LightToChar(p.f));
 		}
 	}
 }

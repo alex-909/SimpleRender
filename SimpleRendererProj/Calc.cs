@@ -83,5 +83,20 @@ namespace SimpleRendererProj
 			}
 			return phi;
 		}
+		public static Vector3[] RotatePointsAroundAxis(Vector3[] points, Vector3 midpoint, Plane plane, float omegaT, float d1, float d2) 
+		{
+			List<Vector3> rotatedPoints = new List<Vector3>();
+			foreach (Vector3 p in points) 
+			{
+				Vector3 point = p;
+				float amplitude = GetAmplitude(point, midpoint, plane);
+				float phase = GetPhase(point, midpoint, plane);
+				(point.y, point.z) = RotSinCos(amplitude, omegaT, phase, d1, d2);
+
+				rotatedPoints.Add(point);
+			}
+
+			return rotatedPoints.ToArray();
+		}
 	}
 }

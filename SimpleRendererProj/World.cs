@@ -6,20 +6,20 @@ namespace SimpleRendererProj
 {
 	class World
 	{
-		private List<Vector3> points;
+		private List<(Vector3, float)> points;
 		public World() 
 		{
-			points = new List<Vector3>();
+			points = new List<(Vector3, float)>();
 		}
-		public Vector3[] GetAllPoints() 
+		public (Vector3, float)[] GetAllPoints() 
 		{
 			return points.ToArray();
 		}
-		public void AddPoint(Vector3 point) 
+		public void AddPoint((Vector3, float) point) 
 		{
 			points.Add(point);
 		}
-		public void AddPoint(Vector3[] point) 
+		public void AddPoint((Vector3, float)[] point) 
 		{
 			points.AddRange(point);
 		}
@@ -27,7 +27,18 @@ namespace SimpleRendererProj
 		{
 			foreach (Line line in lines) 
 			{
-				this.AddPoint(line.PointsOnLine());
+				foreach (Vector3 point in line.PointsOnLine()) 
+				{
+					this.AddPoint((point, 1));
+				}
+			}
+		}
+		public void AddFaces(Face[] faces, Vector3 lightSource) 
+		{
+			foreach (Face face in faces) 
+			{
+				face.CalculateLighting(lightSource);
+				this.AddPoint(face.PointsOnFace());
 			}
 		}
 		public void Clear() 

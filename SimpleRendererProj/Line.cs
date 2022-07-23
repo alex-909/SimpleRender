@@ -30,7 +30,8 @@ namespace SimpleRendererProj
 
 			for (int i = 0; i < numberOfPoints; i++) 
 			{
-				points.Add(start + (pointVector * i));
+				Vector3 v1 = start + (pointVector * i);
+				points.Add(v1);
 			}
 
 			return points.ToArray();

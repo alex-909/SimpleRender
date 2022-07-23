@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SimpleRendererProj
 {
@@ -39,6 +37,7 @@ namespace SimpleRendererProj
 				a.y * f,
 				a.z * f);
 		}
+
 		public static Vector3 operator /(Vector3 a, float f)
 		{
 			return new Vector3(
@@ -47,6 +46,17 @@ namespace SimpleRendererProj
 				a.z / f);
 		}
 
+		public static float DotProduct(Vector3 a, Vector3 b) 
+		{
+			return (a.x * b.x) + (a.y * b.y) + (a.z * b.z);
+		}
+		public static Vector3 CrossProduct(Vector3 a, Vector3 b) 
+		{
+			float c1 = (a.y * b.z) - (a.z * b.y);
+			float c2 = (a.z * b.x) - (a.x * b.z);
+			float c3 = (a.x * b.y) - (a.y * b.x);
+			return new Vector3(c1, c2, c3);
+		}
 		public float Length() 
 		{
 			float squared = (x * x) + (y * y) + (z * z);
