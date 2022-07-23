@@ -10,7 +10,8 @@ namespace SimpleRendererProj
 		public static char empty = ' ';
 		public static char full = '#';
 
-		public static string lightString = ".,-~:;=*#$$";
+		public static string lightString = ".:-=+*#%@@";
+		//public static string lightString = ".,-~:;=*#$$";
 		//public static string lightString = ".,-~:;=!*#$@";
 		//public static string lightString = @"$@B%8&WM#oahdpwmZOLCJYXzcvrjft/\|()1{}[]?+~<>i!lI;:,^`'.";
 

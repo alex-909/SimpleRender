@@ -137,7 +137,7 @@ namespace SimpleRendererProj
 
 
 					world.AddFaces(cubeFaces, lightSource);
-					world.AddPoint((pointTest, 1));
+					//world.AddPoint((pointTest, 1));
 
 
 					Console.WriteLine($"world: {world.GetAllPoints().Length}");
