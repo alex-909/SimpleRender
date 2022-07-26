@@ -10,8 +10,6 @@ namespace SimpleRendererProj
 		Vector3 dir1;
 		Vector3 dir2;
 
-		Vector3 normal;
-
 		public float ppU;
 		public float intensity = 1;
 

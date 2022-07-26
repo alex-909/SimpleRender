@@ -13,6 +13,14 @@ namespace SimpleRendererProj
 	}
 	static class Calc
 	{
+		public static Vector3[] CalcOffset(Vector3[] points, Vector3 offset) 
+		{
+			for(int i = 0; i < points.Length; i++) 
+			{
+				points[i] = points[i] + offset;
+			}
+			return points;
+		}
 		public static (float sinRot, float cosRot) RotSinCos(float a, float phi, float phi_offset, float d1, float d2) 
 		{
 			float rot1 = a * MathF.Sin(phi + phi_offset) + d1;
